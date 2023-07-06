@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import Search from './search/Search';
-import CityCard from './city/CityCard';
+import Search from '../components/search/Search';
+import CityCard from '../components/city/CityCard';
 
 const Home = () => {
   const [ selectedCity, setSelectedCity ] = useState(null);

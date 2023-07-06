@@ -6,8 +6,7 @@ const cityCardStyle = {
   cardBodyInfo: 'flex-col w-3/5 flex-shrink flex-wrap justify-around items-center pl-3',
   cardFooter: 'items-center mx-4 mt-4',
   cardTextColor: {
-    day: 'text-day',
-    night: 'text-night',
+    'normal': '#f1f5f9',
   }
 }
 

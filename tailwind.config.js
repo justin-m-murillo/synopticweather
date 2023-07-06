@@ -4,16 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        night: '#ffffff',
-        day: '#f1f5f9',
+        normal: '#f1f5f9',
       },
     },
   },
   plugins: [],
-  safelist: [
-    {
-      pattern: /(text)-(dark|day)/
-    }
-  ]
 }
 

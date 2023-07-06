@@ -4,13 +4,14 @@ import { ChevronDownIcon, EllipsisHorizontalIcon } from 'react-native-heroicons/
 
 import cityCardStyle from '../../style/citycard';
 
-const CityCardFooter = () => {
+const CityCardFooter = ({ handleExpand }) => {
   return (
     <View className={cityCardStyle.cardFooter}>
       <TouchableOpacity
         className='w-full items-center justify-center'
+        onPress={handleExpand}
       >
-        <EllipsisHorizontalIcon size={48} color={'#6b7280'} />
+        <EllipsisHorizontalIcon size={48} color={'#f1f5f9'} />
       </TouchableOpacity>
     </View>
   )
