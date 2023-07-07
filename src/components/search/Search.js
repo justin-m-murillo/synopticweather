@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text } from 'react-native';
+import { View, TouchableWithoutFeedback, useWindowDimensions } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import useFetch from '../../hooks/useFetch';
 
-const Search = ({ onSelectCity }) => {
+const Search = ({ onSelectCity, handleCollapse }) => {
   const [ searchQuery, setSearchQuery ] = useState('');
   const searchUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${searchQuery}&count=10&lanuage=en&format=json`;
   const searchRef = useRef(null);
+  const { width } = useWindowDimensions();
 
   const handleSearchQuery = (query) => {
     setSearchQuery(query);
@@ -27,7 +28,7 @@ const Search = ({ onSelectCity }) => {
   ))
 
   return (
-    <View>
+    <View className='w-screen items-center'>
       <AutocompleteDropdown 
         ref={searchRef}
         dataSet={!cities ? [] : cities}
@@ -38,6 +39,8 @@ const Search = ({ onSelectCity }) => {
         claseOnBlue
         closeOnSubmit
         emptyResultText={'Search city or postal code'}
+        containerStyle={{ width: width*0.8 }}
+        onOpenSuggestionsList={handleCollapse}
       />
     </View>
   )

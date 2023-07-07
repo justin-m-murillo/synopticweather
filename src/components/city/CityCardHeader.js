@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import cityCardStyle from '../../style/citycard';
+import cityStyle from '../../style/city';
 
 const CityCardHeader = () => {
   return (
-    <View className={cityCardStyle.cardHeader}>
+    <View className={cityStyle.cardHeader}>
       <View className='bg-red-400 flex-1 flex-col p-4'>
         
       </View>
