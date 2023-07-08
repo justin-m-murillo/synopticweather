@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import Animated, { 
   SlideInRight, 
   SlideOutLeft,
+  Easing,
 } from 'react-native-reanimated';
 import { DateTime } from 'ts-luxon';
 
@@ -11,6 +12,7 @@ import CityBody from './CityBody';
 import LoadingAnim from '../loading/LoadingAnim';
 
 import useFetch from '../../hooks/useFetch';
+import GradientView from '../gradient/GradientView';
 
 const CityCanvas = ({ 
   selectedCity: {
@@ -18,6 +20,7 @@ const CityCanvas = ({
     latitude, longitude, timezone,
   } 
 }) => {
+  const gradientIndex = useRef('-1');
   const isDark = useRef(false);
 
   const fetchUrl = `https://api.open-meteo.com/v1/forecast?`+
@@ -38,7 +41,11 @@ const CityCanvas = ({
   const hourlyForecast = [];
   if (currentWeather) {
     const curr = DateTime.fromISO(currentWeather.time);
-    
+    const sunr = DateTime.fromISO(daily.sunrise[0]);
+    const suns = DateTime.fromISO(daily.sunset[0]);
+
+    gradientIndex.current = curr < sunr ? '0' : curr > suns ? '2' : '1';
+
     isDark.current = 
       DateTime.fromISO(curr) < DateTime.fromISO(daily.sunrise[0]) ||
       DateTime.fromISO(curr) > DateTime.fromISO(daily.sunset[0]);
@@ -69,30 +76,25 @@ const CityCanvas = ({
     <>
       {!currentWeather ? <LoadingAnim /> :
         <View className={cityStyle.cardCanvas}>
+          
           <Animated.View
             key={id}
-            entering={SlideInRight
-              .springify()
-              .mass(0.9)
-              .damping(15)
-            }
-            exiting={SlideOutLeft
-              .springify()
-              .mass(0.9)
-              .damping(15)
-            }
+            entering={SlideInRight.easing(Easing.ease)}
+            exiting={SlideOutLeft.easing(Easing.ease)}
           >
-            <CityBody 
-              name={name} 
-              admin1={admin1} 
-              country_code={country_code}
-              currentWeather={currentWeather}
-              sunrise={daily.sunrise}
-              sunset={daily.sunset}
-              dailyForecast={dailyForecast}
-              hourlyForecast={hourlyForecast}
-              isDark={isDark}
-            />
+            <GradientView gradientIndex={gradientIndex.current}>
+              <CityBody 
+                name={name} 
+                admin1={admin1} 
+                country_code={country_code}
+                currentWeather={currentWeather}
+                sunrise={daily.sunrise}
+                sunset={daily.sunset}
+                dailyForecast={dailyForecast}
+                hourlyForecast={hourlyForecast}
+                isDark={isDark}
+              />
+            </GradientView>
           </Animated.View>
         </View>
       }

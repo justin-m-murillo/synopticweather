@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 import { ThemeContext } from '../../context/ThemeContext';
 
-const GradientView = ({ children }) => {
-  const { theme } = useContext(ThemeContext);
+const GradientView = ({ gradientIndex, children }) => {
   // Color arrangement: left to right = top to bottom
   const gradientArray = {
     '0': ['#1190D0', '#0B5983', '#052739'], // before sunrise (0)
@@ -17,8 +16,8 @@ const GradientView = ({ children }) => {
   return (
     <View>
       <LinearGradient
-        key={theme.gradient}
-        colors={gradientArray[theme.gradient]}
+        key={gradientIndex}
+        colors={gradientArray[gradientIndex]}
         className='w-screen h-screen'
       >
         {children}

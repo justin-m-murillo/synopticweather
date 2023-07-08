@@ -18,13 +18,12 @@ const CityBodyExt = ({
   time,
   hourlyForecast
 }) => {
-
   return (
-    <View className='flex-col'>
+    <View className='w-fit h-auto flex-col bg-gray-50/[.1] rounded-lg pb-4'>
       <View className='items-center'>
         <Text className='text-normal text-2xl font-semibold my-4'>12-Hour Forecast</Text>
       </View>
-      <View className='w-screen'>
+      <View className='w-fit'>
         <HourlyForecast
           sunrise={sunrise}
           sunset={sunset}

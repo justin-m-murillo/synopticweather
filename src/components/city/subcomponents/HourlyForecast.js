@@ -17,19 +17,20 @@ const HourlyForecast = ({
     .filter((item) => DateTime.fromISO(time) < DateTime.fromISO(item.hour));
 
   const renderHourlyItem = ({ item }) => {
-    //const dayIndex = DateTime.fromISO(item.hour).weekday - 1;
     const { icon } = getWeatherContentTable[item.weathercode];
-
+    const sunr = sunrise.find(elem => elem.slice(0, 10) === item.hour.slice(0, 10));
+    const suns = sunset.find(elem => elem.slice(0, 10) === item.hour.slice(0, 10));
+    
     const thisHour = DateTime.fromISO(item.hour);
-    const sunrHour = DateTime.fromISO(sunrise[0]);
-    const sunsHour = DateTime.fromISO(sunset[0]);
+    const sunrHour = DateTime.fromISO(sunr);
+    const sunsHour = DateTime.fromISO(suns);
 
     const isDark = thisHour < sunrHour || thisHour > sunsHour;
     
     return (
-      <View className='flex flex-col w-24 h-auto items-center px-2'>
+      <View className='flex flex-col w-20 h-auto items-center px-2'>
         <Text className='text-xl text-normal'>{item.hour.slice(11)}</Text>
-        <View className='w-20 h-auto py-2'>
+        <View className='w-16 h-auto py-2'>
           <WeatherIcon icon={isDark ? icon.night : icon.day } />
         </View>
         <Text className='text-2xl text-normal'>{Math.round(item.temperature)}°C</Text>
