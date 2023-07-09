@@ -1,5 +1,10 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+### Asset Credits
+
+Weather SVG: jochang - https://lottiefiles.com/vdr0uy2wwsoljqtc
+Search Loading SVG: Luis Pena - https://lottiefiles.com/npm8agzncdvhadma
+
 # Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.

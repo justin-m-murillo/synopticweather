@@ -6,7 +6,7 @@ import cityStyle from '../../style/city';
 
 const CityCardFooter = ({ toggleExpand }) => {
   return (
-    <View className={cityStyle.cardFooter}>
+    <View className={cityStyle.cityFooter}>
       <TouchableOpacity
         className='w-full items-center justify-center'
         onPress={toggleExpand}

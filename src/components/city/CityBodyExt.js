@@ -1,35 +1,87 @@
 import React from 'react'
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
+//import { ScrollView } from 'react-native-gesture-handler';
 import HourlyForecast from './subcomponents/HourlyForecast';
 
-const weekdays = {
-  '0': 'Mon',
-  '1': 'Tue',
-  '2': 'Wed',
-  '3': 'Thu',
-  '4': 'Fri',
-  '5': 'Sat',
-  '6': 'Sun',
-}
+import styles from '../../style/city';
+import DailyForecast from './subcomponents/DailyForecast';
+import UVIndex from './subcomponents/UVIndex';
+import Precipitation from './subcomponents/Precipitation';
+import Wind from './subcomponents/Wind';
+import Pressure from './subcomponents/Pressure';
 
 const CityBodyExt = ({
   sunrise,
   sunset,
-  time,
-  hourlyForecast
+  currentTime,
+  dailyUnits,
+  hourlyUnits,
+  currentWeather,
+  dailyForecast,
+  hourlyForecast,
+  theme
 }) => {
   return (
-    <View className='w-fit h-auto flex-col bg-gray-50/[.1] rounded-lg pb-4'>
-      <View className='items-center'>
-        <Text className='text-normal text-2xl font-semibold my-4'>12-Hour Forecast</Text>
-      </View>
-      <View className='w-fit'>
+    <View className='flex-1'>
+      <View className={styles.cityForecastContainer}>
+        <Text 
+          style={{ color: styles.cityTextColor[theme] }}
+          className={styles.cityBodyExtTitle}
+        >
+            12-Hour Forecast
+        </Text>
         <HourlyForecast
           sunrise={sunrise}
           sunset={sunset}
-          time={time}
+          currentTime={currentTime}
           hourlyForecast={hourlyForecast}
+          hourlyUnits={hourlyUnits}
         />
+      </View>
+      <View className={styles.cityForecastContainer}>
+        <Text 
+          style={{ color: styles.cityTextColor[theme] }}
+          className={styles.cityBodyExtTitle}
+        >
+            10-Day Forecast
+        </Text>
+        <DailyForecast
+          currentTime={currentTime}
+          dailyForecast={dailyForecast}
+          dailyUnits={dailyUnits}
+        />
+      </View>
+      <View className='flex-row w-fit h-auto space-x-2'>
+        <View className={styles.cityGridItem}>
+          <UVIndex 
+            uvIndex={hourlyForecast[0].uvIndex}
+            theme={theme}
+          />
+        </View>
+        <View className={styles.cityGridItem}>
+          <Precipitation
+            precipitationSum={dailyForecast[0].precipitationSum}
+            precipitationHours={dailyForecast[0].precipitationHours}
+            dailyUnits={dailyUnits}
+            theme={theme}
+          />
+        </View>
+      </View>
+      <View className='flex-row w-fit h-auto space-x-2'>
+        <View className={styles.cityGridItem}>
+          <Wind 
+            currentWeather={currentWeather}
+            dailyUnits={dailyUnits}
+            theme={theme}
+          />
+        </View>
+        <View className={styles.cityGridItem}>
+          <Pressure
+            pressure={hourlyForecast[0].pressure}
+            hourlyUnits={hourlyUnits}
+            theme={theme}
+          />
+        </View>
       </View>
     </View>
   )

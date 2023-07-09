@@ -1,0 +1,6 @@
+import { createContext } from 'react';
+
+export const CityContext = createContext({
+  city: null,
+  setCity: () => {}
+});

@@ -1,10 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View } from 'react-native';
-import Animated, { 
-  SlideInRight, 
-  SlideOutLeft,
-  Easing,
-} from 'react-native-reanimated';
+import { ScrollView } from 'react-native-gesture-handler';
+import { MotiView, AnimatePresence } from 'moti';
 import { DateTime } from 'ts-luxon';
 
 import cityStyle from '../../style/city';
@@ -14,22 +11,23 @@ import LoadingAnim from '../loading/LoadingAnim';
 import useFetch from '../../hooks/useFetch';
 import GradientView from '../gradient/GradientView';
 
-const CityCanvas = ({ 
-  selectedCity: {
-    id, name, admin1, country_code,
-    latitude, longitude, timezone,
-  } 
+const CityCanvas = ({
+  id, name, admin1, country_code,
+  latitude, longitude, timezone
 }) => {
   const gradientIndex = useRef('-1');
   const isDark = useRef(false);
+  const isLoading = useRef(true);
 
   const fetchUrl = `https://api.open-meteo.com/v1/forecast?`+
   `latitude=${latitude}`+
   `&longitude=${longitude}`+
-  `8&hourly=temperature_2m,weathercode,pressure_msl`+
-  `&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum`+
+  `8&hourly=temperature_2m,weathercode,pressure_msl,uv_index,is_day`+
+  `&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,`+
+  `uv_index_max,precipitation_sum,precipitation_hours,windspeed_10m_max`+
   `&current_weather=true`+
-  `&timezone=${timezone}`;
+  `&timezone=${timezone}`+
+  `&forecast_days=14`;
 
   const weatherFetch = useFetch({url: fetchUrl, fireNow: true});
   
@@ -37,6 +35,8 @@ const CityCanvas = ({
   const daily = weatherFetch?.data?.daily;
   const currentWeather = weatherFetch?.data?.current_weather;
 
+  const dailyUnits = weatherFetch?.data?.daily_units;
+  const hourlyUnits = weatherFetch?.data?.hourly_units;
   const dailyForecast = [];
   const hourlyForecast = [];
   if (currentWeather) {
@@ -59,44 +59,60 @@ const CityCanvas = ({
           hi: daily.temperature_2m_max[i],
           lo: daily.temperature_2m_min[i]
         },
+        weathercode: daily.weathercode[i],
+        precipitationSum: daily.precipitation_sum[i],
+        precipitationHours: daily.precipitation_hours[i],
+        uvIndex: daily.uv_index_max[i]
       });
     }
-
     for (let i=0; i < hourly.time.length; i++) {
       hourlyForecast.push({
         hour: hourly.time[i],
+        isDay: hourly.is_day[i],
         temperature: hourly.temperature_2m[i],
         weathercode: hourly.weathercode[i],
-        pressure: hourly.pressure_msl[i]
+        pressure: hourly.pressure_msl[i],
+        uvIndex: hourly.uv_index[i]
       })
     }
+
+    isLoading.current = false;
   }
 
   return (
     <>
-      {!currentWeather ? <LoadingAnim /> :
-        <View className={cityStyle.cardCanvas}>
-          
-          <Animated.View
-            key={id}
-            entering={SlideInRight.easing(Easing.ease)}
-            exiting={SlideOutLeft.easing(Easing.ease)}
+      {!isLoading.current &&
+        <AnimatePresence>
+          <MotiView
+            key={isLoading.current} 
+            className={cityStyle.cityCanvas}
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <GradientView gradientIndex={gradientIndex.current}>
-              <CityBody 
-                name={name} 
-                admin1={admin1} 
-                country_code={country_code}
-                currentWeather={currentWeather}
-                sunrise={daily.sunrise}
-                sunset={daily.sunset}
-                dailyForecast={dailyForecast}
-                hourlyForecast={hourlyForecast}
-                isDark={isDark}
-              />
+            <GradientView id={id} gradientIndex={gradientIndex.current}>
+              <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                className='flex-1 w-auto h-auto flex-col'
+              >
+                <CityBody 
+                  id={id}
+                  name={name} 
+                  admin1={admin1} 
+                  country_code={country_code}
+                  currentWeather={currentWeather}
+                  sunrise={daily.sunrise}
+                  sunset={daily.sunset}
+                  dailyUnits={dailyUnits}
+                  hourlyUnits={hourlyUnits}
+                  dailyForecast={dailyForecast}
+                  hourlyForecast={hourlyForecast}
+                  isDark={isDark}
+                />
+              </ScrollView>
             </GradientView>
-          </Animated.View>
-        </View>
+          </MotiView>
+        </AnimatePresence>
       }
     </>
   )

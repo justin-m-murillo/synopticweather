@@ -5,7 +5,7 @@ import cityStyle from '../../style/city';
 
 const CityCardHeader = () => {
   return (
-    <View className={cityStyle.cardHeader}>
+    <View className={cityStyle.cityHeader}>
       <View className='bg-red-400 flex-1 flex-col p-4'>
         
       </View>
