@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react';
-import { View } from 'react-native';
+import React, { useRef } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { MotiView, AnimatePresence } from 'moti';
 import { DateTime } from 'ts-luxon';
