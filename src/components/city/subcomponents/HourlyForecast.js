@@ -14,6 +14,7 @@ const HourlyForecast = ({
   hourlyUnits
 }) => {
   const renderHourlyItem = ({ item }) => {
+    //console.log(hourlyForecast)
     const { icon } = getWeatherContentTable[item.weathercode];
     return (
       <View className={style.forecastContainer}>

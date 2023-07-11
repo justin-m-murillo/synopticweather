@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text } from 'react-native';
 import { MotiView } from 'moti';
 
 import styles from '../../style/city';
+import { AnimDelayContext } from '../../context/AnimDelayContext';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const CityBodyInfo = ({
   id,
@@ -11,9 +13,9 @@ const CityBodyInfo = ({
   country_code,
   temperature,
   label,
-  theme,
-  animDelay
 }) => {
+  const animDelay = useContext(AnimDelayContext);
+  const theme = useContext(ThemeContext);
   return (
     <View className={styles.cityBodyInfo}>
       <MotiView
@@ -26,10 +28,6 @@ const CityBodyInfo = ({
         animate={{
           scale: 1,
           opacity: 1,
-        }}
-        exit={{ opacity: 0 }}
-        transition={{
-          delay: animDelay*1
         }}
       >
         <Text 
@@ -58,7 +56,7 @@ const CityBodyInfo = ({
         }}
         exit={{ opacity: 0 }}
         transition={{
-          delay: animDelay*1
+          delay: animDelay
         }}
       >
         <Text 

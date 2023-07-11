@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native';
 import CityCanvas from '../components/city/CityCanvas'
 
-const CityScreen = ({ route, navigation }) => {
+const CityScreen = ({ route }) => {
   const { 
     id, title, name, admin1, country_code,
     latitude, longitude, timezone
@@ -10,7 +10,7 @@ const CityScreen = ({ route, navigation }) => {
 
   return (
     <View className='flex-1 grow relative'>
-      <CityCanvas 
+      <CityCanvas
         id={id}
         title={title}
         name={name}

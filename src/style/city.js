@@ -1,7 +1,7 @@
 
 const cityStyle = {
   cityCanvas: 'w-screen h-auto flex-col grow',
-  cityContainer: 'flex-1 flex-col h-auto mx-4 my-2 pt-16',
+  cityContainer: 'flex-1 flex-col h-auto mx-4 my-2 pt-4',
   cityHeader: 'bg-red-300 flex-row h-auto w-full justify-between',
   cityBody: 'flex-1 flex-row w-auto h-auto px-4',
   cityBodyInfo: 'flex-1 flex-col w-3/5 h-auto flex-shrink flex-wrap',

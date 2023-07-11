@@ -18,7 +18,6 @@ const weekdays = {
 }
 
 const DailyForecast = ({ currentTime, dailyForecast, dailyUnits }) => {
-  const dailyRenderList = dailyForecast.slice(0, 10);
   const today = DateTime.fromISO(currentTime);
 
   const renderDailyItem = ({ item }) => {
@@ -64,7 +63,7 @@ const DailyForecast = ({ currentTime, dailyForecast, dailyUnits }) => {
 
   return (
     <FlatList 
-      data={dailyRenderList}
+      data={dailyForecast}
       renderItem={renderDailyItem}
       horizontal
       showsHorizontalScrollIndicator={false}

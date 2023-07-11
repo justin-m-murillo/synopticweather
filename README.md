@@ -2,8 +2,10 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 ### Asset Credits
 
-Weather SVG: jochang - https://lottiefiles.com/vdr0uy2wwsoljqtc
-Search Loading SVG: Luis Pena - https://lottiefiles.com/npm8agzncdvhadma
+Landing Page Background: DICK DEV - https://lottiefiles.com/bbxnt1gkpptgme9q
+Landing Page Icon: Agung Hermansyah - https://lottiefiles.com/sundagrapis
+Weather Icons SVG: jochang - https://lottiefiles.com/vdr0uy2wwsoljqtc
+Search Loading SVG: S M Rony - https://lottiefiles.com/smrony
 
 # Getting Started
 

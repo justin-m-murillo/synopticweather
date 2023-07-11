@@ -1,16 +1,21 @@
-import React from 'react'
-import { View, Text, ScrollView } from 'react-native';
-//import { ScrollView } from 'react-native-gesture-handler';
-import HourlyForecast from './subcomponents/HourlyForecast';
+import React, { useContext } from 'react'
+import { View, Text } from 'react-native';
+import { MotiView } from 'moti';
 
 import styles from '../../style/city';
+
+import HourlyForecast from './subcomponents/HourlyForecast';
 import DailyForecast from './subcomponents/DailyForecast';
 import UVIndex from './subcomponents/UVIndex';
 import Precipitation from './subcomponents/Precipitation';
 import Wind from './subcomponents/Wind';
 import Pressure from './subcomponents/Pressure';
 
+import { AnimDelayContext } from '../../context/AnimDelayContext';
+import { ThemeContext } from '../../context/ThemeContext';
+
 const CityBodyExt = ({
+  id,
   sunrise,
   sunset,
   currentTime,
@@ -19,16 +24,33 @@ const CityBodyExt = ({
   currentWeather,
   dailyForecast,
   hourlyForecast,
-  theme
 }) => {
+  const animDelay = useContext(AnimDelayContext);
+  const delayInc = 3;
+  const theme = useContext(ThemeContext);
+
   return (
-    <View className='flex-1'>
-      <View className={styles.cityForecastContainer}>
+    <View key={id} className='flex-1'>
+      <MotiView 
+        key={id+'1'}
+        className={styles.cityForecastContainer}
+        from={{ 
+          opacity: 0,
+          scale: 0.1
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1.0
+        }}
+        transition={{
+          delay: animDelay*delayInc
+        }}
+      >
         <Text 
           style={{ color: styles.cityTextColor[theme] }}
           className={styles.cityBodyExtTitle}
         >
-            12-Hour Forecast
+          12-Hour Forecast
         </Text>
         <HourlyForecast
           sunrise={sunrise}
@@ -37,8 +59,22 @@ const CityBodyExt = ({
           hourlyForecast={hourlyForecast}
           hourlyUnits={hourlyUnits}
         />
-      </View>
-      <View className={styles.cityForecastContainer}>
+      </MotiView>
+      <MotiView
+        key={id+'2'} 
+        className={styles.cityForecastContainer}
+        from={{ 
+          opacity: 0,
+          scale: 0.1
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1.0
+        }}
+        transition={{
+          delay: animDelay*(delayInc+1)
+        }}
+      >
         <Text 
           style={{ color: styles.cityTextColor[theme] }}
           className={styles.cityBodyExtTitle}
@@ -50,8 +86,22 @@ const CityBodyExt = ({
           dailyForecast={dailyForecast}
           dailyUnits={dailyUnits}
         />
-      </View>
-      <View className='flex-row w-fit h-auto space-x-2'>
+      </MotiView>
+      <MotiView
+        key={id+'3'} 
+        className='flex-row w-fit h-auto space-x-2'
+        from={{ 
+          opacity: 0,
+          scale: 0.1
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1.0
+        }}
+        transition={{
+          delay: animDelay*(delayInc+2)
+        }}
+      >
         <View className={styles.cityGridItem}>
           <UVIndex 
             uvIndex={hourlyForecast[0].uvIndex}
@@ -66,8 +116,22 @@ const CityBodyExt = ({
             theme={theme}
           />
         </View>
-      </View>
-      <View className='flex-row w-fit h-auto space-x-2'>
+      </MotiView>
+      <MotiView 
+        key={id+'4'}
+        className='flex-row w-fit h-auto space-x-2'
+        from={{
+          opacity: 0,
+          scale: 0.1
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1.0
+        }}
+        transition={{
+          delay: animDelay*(delayInc+3)
+        }}
+      >
         <View className={styles.cityGridItem}>
           <Wind 
             currentWeather={currentWeather}
@@ -82,7 +146,7 @@ const CityBodyExt = ({
             theme={theme}
           />
         </View>
-      </View>
+      </MotiView>
     </View>
   )
 }

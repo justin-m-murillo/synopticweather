@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, useWindowDimensions } from 'react-native';
+import { View, Text, useWindowDimensions } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import useFetch from '../../hooks/useFetch';
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +20,7 @@ const Search = () => {
 
   const handleSelectedItem = (item) => {
     if (!item) return;
+    setSearchQuery('');
     navigation.navigate('CityScreen', {
       id:           item?.id,
       title:        item?.title,
@@ -29,7 +30,7 @@ const Search = () => {
       latitude:     item?.latitude,
       longitude:    item?.longitude,
       timezone:     item?.timezone,
-    })
+    });
   }
 
   const { data } = useFetch({url: searchUrl});
@@ -47,31 +48,41 @@ const Search = () => {
   ))
 
   return (
-    <View className='flex-row w-screen items-center justify-center'>
-      <MagnifyingGlassIcon size={24} color={'#fff'} style={{ flex: 1 }} />
+    <View className='flex-row w-auto h-auto items-center'>
+      {/* <MagnifyingGlassIcon size={24} color={'#fff'} style={{ flex: 1 }} /> */}
       <AutocompleteDropdown 
         ref={searchRef}
+        initialValue={''}
         dataSet={!cities ? [] : cities}
         onChangeText={handleSearchQuery}
         onSelectItem={handleSelectedItem}
         debounce={500}
         useFilter={false}
-        claseOnBlue
         closeOnSubmit
-        emptyResultText={'Search city or postal code'}
+        EmptyResultComponent={
+          <View className='w-fit h-auto items-center'>
+            <Text className='text-white p-2'>Enter city or postal code</Text>
+          </View>
+        }
         showClear={false}
         ChevronIconComponent={<ChevronDownIcon size={24} color={'#fff'} />}
         containerStyle={{ 
           width: width*0.6,
         }}
-        inputContainerStyle={{ 
+        inputContainerStyle={{
+          width: 250, 
           backgroundColor: 'none',
         }}
         textInputProps={{
-          placeholder: 'Search city or postal code',
           style: {
             color: '#fff'
           }
+        }}
+        suggestionsListContainerStyle={{
+          backgroundColor: '#0A4E71',
+        }}
+        suggestionsListTextStyle={{
+          color: '#fff',
         }}
       />
     </View>

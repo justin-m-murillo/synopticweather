@@ -6,23 +6,23 @@ import styles from '../../../style/city';
 const UVIndex = ({ uvIndex, theme }) => {
   const indexTable = {
     'low': {
-      color: '#3FB03D',
+      color: 'rgba(63,176,61,.8)',
       label: 'Low',
     },
     'moderate': {
-      color: '#DFDC25',
+      color: 'rgba(233,241,34,.8)',
       label: 'Moderate',
     },
     'high': {
-      color: '#FF8400',
+      color: 'rgba(255,124,0,.8)',
       label: 'High'
     },
     'very-high': {
-      color: '#D31010',
+      color: 'rgba(211,16,16,.8)',
       label: 'Very High'
     },
     'extreme': {
-      color: '#BE1FEE',
+      color: 'rgba(190,31,238,.8)',
       label: 'Extreme'
     },
   }
@@ -50,13 +50,12 @@ const UVIndex = ({ uvIndex, theme }) => {
       </Text>
       <View 
         style={{ 
-          backgroundColor: indexTable[index].color,
-          opacity: 0.9
+          backgroundColor: indexTable[index].color
         }}
         className='flex w-28 justify-center items-center rounded-lg pb-0.5'
       >
         <Text 
-          className='text-lg text-black font-semibold'
+          className='text-lg text-black/[.8] font-semibold'
         >
           {indexTable[index].label}
         </Text>

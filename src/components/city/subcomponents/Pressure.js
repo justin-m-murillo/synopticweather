@@ -18,7 +18,7 @@ const Pressure = ({
           style={{ color: styles.cityTextColor[theme] }}
           className='text-2xl font-semibold py-1'
         >
-          {pressure} {hourlyUnits['pressure_msl']}
+          {Math.floor(pressure)} {hourlyUnits['pressure_msl']}
         </Text>
       </View>
     </>

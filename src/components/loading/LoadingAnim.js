@@ -7,12 +7,12 @@ const LoadingAnim = () => {
   const { width, height } = useWindowDimensions();
 
   return (
-    <View className='w-full h-2/3 items-center'>
+    <View className='w-auto h-1/2 items-center'>
       <Lottie 
         source={LoadingIcon}
         autoPlay
         loop
-        resizeMode='cover'
+        resizeMode='contain'
       />
     </View>
   )

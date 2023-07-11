@@ -13,19 +13,19 @@ const MainStackNavigator = () => {
       initialRouteName='HomeScreen'
       screenOptions={{
         headerShown: false,
-        gestureEnabled: false,
       }}
     >
       <Stack.Screen name='HomeScreen'
         children={(props) => <HomeScreen {...props} />} 
       />
       <Stack.Screen name='CityScreen' 
-        children={(props) => <CityScreen {...props} />}
+        children={(props) => 
+          <CityScreen {...props} />}
       />
     </Stack.Navigator>
-    <View className='absolute top-2 left-0'>
+    {/* <View className='absolute top-2 left-0'>
       <Search />
-    </View>
+    </View> */}
   </View>
     
   )
