@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { MotiView, AnimatePresence } from 'moti';
 import { DateTime } from 'ts-luxon';
@@ -14,6 +15,7 @@ const CityCanvas = ({
   id, name, admin1, country_code,
   latitude, longitude, timezone
 }) => {
+  const insets = useSafeAreaInsets();
   const gradientIndex = useRef('-1');
   const isDark = useRef(false);
 
@@ -94,6 +96,9 @@ const CityCanvas = ({
               key={id}
               contentContainerStyle={{ flexGrow: 1 }}
               className='flex-1 w-auto h-auto flex-col'
+              style={{
+                paddingTop: insets.top
+              }}
             >
               <CityBody
                 key={id} 

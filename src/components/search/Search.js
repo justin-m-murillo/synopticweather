@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, useWindowDimensions } from 'react-native';
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 import useFetch from '../../hooks/useFetch';
@@ -65,12 +65,14 @@ const Search = () => {
           </View>
         }
         showClear={false}
-        ChevronIconComponent={<ChevronDownIcon size={24} color={'#fff'} />}
+        ChevronIconComponent={
+          <ChevronDownIcon size={24} color={'#fff'} />
+        }
         containerStyle={{ 
           width: width*0.6,
         }}
         inputContainerStyle={{
-          width: 250, 
+          width: width*0.6, 
           backgroundColor: 'none',
         }}
         textInputProps={{

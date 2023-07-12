@@ -3,10 +3,10 @@ import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import CityScreen from '../screens/CityScreen';
-import Search from '../components/search/Search';
 
 const MainStackNavigator = () => {
   const Stack = createNativeStackNavigator();
+  
   return (
     <View className='w-screen h-screen relative'>
       <Stack.Navigator

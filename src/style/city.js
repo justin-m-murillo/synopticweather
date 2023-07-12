@@ -16,7 +16,7 @@ const cityStyle = {
   forecastIconWrapper: 'w-9 h-auto py-2',
   forecastDailyItemLabel: 'text-base text-normal',
   forecastHourlyItemLabel: 'text-lg text-normal',
-  cityGridItem: 'h-32 flex-1 items-center bg-gray-50/[.2] rounded-xl pt-1 pb-3 my-1'
+  cityGridItem: 'h-32 flex-1 items-center bg-gray-50/[.2] rounded-xl pt-1 pb-3 my-1',
 }
 
 export default cityStyle;
