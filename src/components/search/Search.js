@@ -70,7 +70,7 @@ const Search = () => {
           width: width*0.6,
         }}
         inputContainerStyle={{
-          width: 250, 
+          width: width*0.6, 
           backgroundColor: 'none',
         }}
         textInputProps={{
